@@ -6,8 +6,8 @@ import (
 	"crypto/hmac"
 	"crypto/sha256"
 	"encoding/hex"
+	"encoding/json"
 	"fmt"
-	"github.com/neoru4/bybit.go.api/models"
 	"io"
 	"log"
 	"net/http"
@@ -17,11 +17,9 @@ import (
 	"time"
 
 	"github.com/bitly/go-simplejson"
-	jsoniter "github.com/json-iterator/go"
 	"github.com/neoru4/bybit.go.api/handlers"
+	"github.com/neoru4/bybit.go.api/models"
 )
-
-var json = jsoniter.ConfigCompatibleWithStandardLibrary
 
 type BybitClientRequest struct {
 	c      *Client

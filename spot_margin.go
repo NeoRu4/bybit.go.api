@@ -2,6 +2,7 @@ package bybit_connector
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"github.com/neoru4/bybit.go.api/handlers"
 	"net/http"

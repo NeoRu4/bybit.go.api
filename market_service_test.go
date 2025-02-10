@@ -1,7 +1,6 @@
-package bybit_connector_test
+package bybit_connector
 
 import (
-	"github.com/neoru4/bybit.go.api"
 	"net/http"
 	"testing"
 
@@ -10,7 +9,7 @@ import (
 )
 
 type marketTestSuite struct {
-	bybit_connector.baseTestSuite
+	baseTestSuite
 }
 
 func TestMarketKline(t *testing.T) {
@@ -66,10 +65,10 @@ func (s *marketTestSuite) TestMarketKline() {
 	start := uint64(1499040000000)
 	end := uint64(1499040000001)
 	limit := 10
-	s.assertReq(func(r *bybit_connector.request) {
-		e := bybit_connector.newRequest()
+	s.assertReq(func(r *request) {
+		e := newRequest()
 		e.method = http.MethodGet
-		e.setParams(bybit_connector.params{
+		e.setParams(params{
 			"category": category,
 			"symbol":   symbol,
 			"interval": interval,
@@ -83,7 +82,7 @@ func (s *marketTestSuite) TestMarketKline() {
 	res, err := s.client.NewMarketKlineService().
 		Category(category).Symbol(symbol).Interval(interval).
 		Start(start).End(end).Limit(limit).
-		Do(bybit_connector.newContext())
+		Do(newContext())
 	e1 := &models.MarketKlineResponse{
 		Symbol:   "BTCUSD",
 		Category: "inverse",
@@ -158,10 +157,10 @@ func (s *marketTestSuite) TestMarketMarkPriceKline() {
 	start := uint64(1499040000000)
 	end := uint64(1499040000001)
 	limit := 10
-	s.assertReq(func(r *bybit_connector.request) {
-		e := bybit_connector.newRequest()
+	s.assertReq(func(r *request) {
+		e := newRequest()
 		e.method = http.MethodGet
-		e.setParams(bybit_connector.params{
+		e.setParams(params{
 			"category": category,
 			"symbol":   symbol,
 			"interval": interval,
@@ -175,7 +174,7 @@ func (s *marketTestSuite) TestMarketMarkPriceKline() {
 	res, err := s.client.NewMarketMarkPriceKlineService().
 		Category(category).Symbol(symbol).Interval(interval).
 		Start(start).End(end).Limit(limit).
-		Do(bybit_connector.newContext())
+		Do(newContext())
 	e1 := &models.MarketMarkPriceKlineResponse{
 		Symbol:   "BTCUSDT",
 		Category: "linear",
@@ -238,10 +237,10 @@ func (s *marketTestSuite) TestMarketIndexPriceKline() {
 	start := uint64(1499040000000)
 	end := uint64(1499040000001)
 	limit := 10
-	s.assertReq(func(r *bybit_connector.request) {
-		e := bybit_connector.newRequest()
+	s.assertReq(func(r *request) {
+		e := newRequest()
 		e.method = http.MethodGet
-		e.setParams(bybit_connector.params{
+		e.setParams(params{
 			"category": category,
 			"symbol":   symbol,
 			"interval": interval,
@@ -255,7 +254,7 @@ func (s *marketTestSuite) TestMarketIndexPriceKline() {
 	res, err := s.client.NewMarketIndexPriceKlineService().
 		Category(category).Symbol(symbol).Interval(interval).
 		Start(start).End(end).Limit(limit).
-		Do(bybit_connector.newContext())
+		Do(newContext())
 	e1 := &models.MarketIndexPriceKlineResponse{
 		Symbol:   "BTCUSDZ22",
 		Category: models.CategoryInverse,
@@ -325,10 +324,10 @@ func (s *marketTestSuite) TestMarketPremiumIndexPriceKline() {
 	start := uint64(1499040000000)
 	end := uint64(1499040000001)
 	limit := 10
-	s.assertReq(func(r *bybit_connector.request) {
-		e := bybit_connector.newRequest()
+	s.assertReq(func(r *request) {
+		e := newRequest()
 		e.method = http.MethodGet
-		e.setParams(bybit_connector.params{
+		e.setParams(params{
 			"category": category,
 			"symbol":   symbol,
 			"interval": interval,
@@ -342,7 +341,7 @@ func (s *marketTestSuite) TestMarketPremiumIndexPriceKline() {
 	res, err := s.client.NewMarketPremiumIndexPriceKlineService().
 		Category(category).Symbol(symbol).Interval(interval).
 		Start(start).End(end).Limit(limit).
-		Do(bybit_connector.newContext())
+		Do(newContext())
 	e1 := &models.MarketPremiumIndexPriceKlineResponse{
 		Symbol:   "BTCPERP",
 		Category: "linear",
@@ -416,10 +415,10 @@ func (s *marketTestSuite) TestInstrumentsInfo() {
 	baseCoin := "BTC"
 	limit := 10
 	cursor := "cursor"
-	s.assertReq(func(r *bybit_connector.request) {
-		e := bybit_connector.newRequest()
+	s.assertReq(func(r *request) {
+		e := newRequest()
 		e.method = http.MethodGet
-		e.setParams(bybit_connector.params{
+		e.setParams(params{
 			"category": category,
 			"symbol":   symbol,
 			"status":   status,
@@ -433,7 +432,7 @@ func (s *marketTestSuite) TestInstrumentsInfo() {
 	res, err := s.client.NewInstrumentsInfoService().
 		Category(category).Symbol(symbol).Status(status).
 		BaseCoin(baseCoin).Limit(limit).Cursor(cursor).
-		Do(bybit_connector.newContext())
+		Do(newContext())
 
 	e1 := &models.InstrumentInfoResponse{
 		Category:       "spot",
@@ -502,10 +501,10 @@ func (s *marketTestSuite) TestOrderBookInfo() {
 	category := models.CategoryInverse
 	symbol := "BTCUSD"
 	limit := 10
-	s.assertReq(func(r *bybit_connector.request) {
-		e := bybit_connector.newRequest()
+	s.assertReq(func(r *request) {
+		e := newRequest()
 		e.method = http.MethodGet
-		e.setParams(bybit_connector.params{
+		e.setParams(params{
 			"category": category,
 			"symbol":   symbol,
 			"limit":    limit,
@@ -515,7 +514,7 @@ func (s *marketTestSuite) TestOrderBookInfo() {
 
 	res, err := s.client.NewOrderBookService().
 		Category(category).Symbol(symbol).Limit(limit).
-		Do(bybit_connector.newContext())
+		Do(newContext())
 
 	e1 := &models.OrderBookInfo{
 		Symbol: "BTC-30DEC22-18000-C",
@@ -744,10 +743,10 @@ func (s *marketTestSuite) testTickersInfo(e1 []*models.TickerInfo) {
 	symbol := "BTCUSD"
 	baseCoin := "BTC"
 	expDate := "2022-12-30"
-	s.assertReq(func(r *bybit_connector.request) {
-		e := bybit_connector.newRequest()
+	s.assertReq(func(r *request) {
+		e := newRequest()
 		e.method = http.MethodGet
-		e.setParams(bybit_connector.params{
+		e.setParams(params{
 			"category": category,
 			"symbol":   symbol,
 			"baseCoin": baseCoin,
@@ -758,7 +757,7 @@ func (s *marketTestSuite) testTickersInfo(e1 []*models.TickerInfo) {
 
 	res, err := s.client.NewTickersService().
 		Category(category).Symbol(symbol).BaseCoin(baseCoin).ExpDate(expDate).
-		Do(bybit_connector.newContext())
+		Do(newContext())
 
 	s.r().NoError(err)
 	s.assertTickersEqual(e1, res.List)
@@ -794,10 +793,10 @@ func (s *marketTestSuite) TestFundingRates() {
 	startTime := uint64(1499040000000)
 	endTime := uint64(1499040000001)
 	limit := 10
-	s.assertReq(func(r *bybit_connector.request) {
-		e := bybit_connector.newRequest()
+	s.assertReq(func(r *request) {
+		e := newRequest()
 		e.method = http.MethodGet
-		e.setParams(bybit_connector.params{
+		e.setParams(params{
 			"category":  category,
 			"symbol":    symbol,
 			"startTime": startTime,
@@ -810,7 +809,7 @@ func (s *marketTestSuite) TestFundingRates() {
 	res, err := s.client.NewFundingTatesService().
 		Category(category).Symbol(symbol).
 		StartTime(startTime).EndTime(endTime).Limit(limit).
-		Do(bybit_connector.newContext())
+		Do(newContext())
 
 	e1 := &models.FundingRate{
 		Category: "linear",
@@ -862,10 +861,10 @@ func (s *marketTestSuite) TestGetPublicRecentTrades() {
 	baseCoin := "BTC"
 	optionType := "optionType"
 	limit := 10
-	s.assertReq(func(r *bybit_connector.request) {
-		e := bybit_connector.newRequest()
+	s.assertReq(func(r *request) {
+		e := newRequest()
 		e.method = http.MethodGet
-		e.setParams(bybit_connector.params{
+		e.setParams(params{
 			"category":   category,
 			"symbol":     symbol,
 			"baseCoin":   baseCoin,
@@ -878,7 +877,7 @@ func (s *marketTestSuite) TestGetPublicRecentTrades() {
 	res, err := s.client.NewGetPublicRecentTradesService().
 		Category(category).Symbol(symbol).BaseCoin(baseCoin).
 		OptionType(optionType).Limit(limit).
-		Do(bybit_connector.newContext())
+		Do(newContext())
 
 	e1 := &models.PublicRecentTradeHistory{
 		Category: "spot",
@@ -937,11 +936,11 @@ func (s *marketTestSuite) TestGetOpenInterests() {
 	endTime := uint64(1499040000001)
 	limit := 10
 	cursor := "cursor"
-	s.assertReq(func(r *bybit_connector.request) {
-		e := bybit_connector.newRequest()
+	s.assertReq(func(r *request) {
+		e := newRequest()
 		e.method = http.MethodGet
 
-		e.setParams(bybit_connector.params{
+		e.setParams(params{
 			"category":     category,
 			"symbol":       symbol,
 			"intervalTime": intervalTime,
@@ -956,7 +955,7 @@ func (s *marketTestSuite) TestGetOpenInterests() {
 	res, err := s.client.NewGetOpenInterestsService().
 		Category(category).Symbol(symbol).IntervalTime(intervalTime).
 		StartTime(startTime).EndTime(endTime).Limit(limit).Cursor(cursor).
-		Do(bybit_connector.newContext())
+		Do(newContext())
 
 	e1 := &models.OpenInterestInfo{
 		Symbol:   "BTCUSD",
@@ -1007,11 +1006,11 @@ func (s *marketTestSuite) TestGetHistoricalVolatility() {
 	period := "period"
 	startTime := uint64(1499040000000)
 	endTime := uint64(1499040000001)
-	s.assertReq(func(r *bybit_connector.request) {
-		e := bybit_connector.newRequest()
+	s.assertReq(func(r *request) {
+		e := newRequest()
 		e.method = http.MethodGet
 
-		e.setParams(bybit_connector.params{
+		e.setParams(params{
 			"category":  category,
 			"baseCoin":  baseCoin,
 			"period":    period,
@@ -1024,7 +1023,7 @@ func (s *marketTestSuite) TestGetHistoricalVolatility() {
 	res, err := s.client.NewGetHistoricalVolatilityService().
 		Category(category).BaseCoin(baseCoin).Period(period).
 		StartTime(startTime).EndTime(endTime).
-		Do(bybit_connector.newContext())
+		Do(newContext())
 
 	e1 := &models.HistoricalVolatilityInfo{
 		Category: "option",
@@ -1068,18 +1067,18 @@ func (s *marketTestSuite) TestGetInsuranceInfo() {
 	defer s.assertDo()
 
 	coin := "BTC"
-	s.assertReq(func(r *bybit_connector.request) {
-		e := bybit_connector.newRequest()
+	s.assertReq(func(r *request) {
+		e := newRequest()
 		e.method = http.MethodGet
 
-		e.setParams(bybit_connector.params{
+		e.setParams(params{
 			"coin": coin,
 		})
 		s.assertRequestEqual(e, r)
 	})
 
 	res, err := s.client.NewGetInsuranceInfoService().
-		Coin(coin).Do(bybit_connector.newContext())
+		Coin(coin).Do(newContext())
 
 	e1 := &models.MarketInsuranceInfo{
 		UpdatedTime: "1672012800000",
@@ -1128,11 +1127,11 @@ func (s *marketTestSuite) TestGetRiskLimit() {
 
 	category := models.CategoryInverse
 	symbol := "BTCUSDT"
-	s.assertReq(func(r *bybit_connector.request) {
-		e := bybit_connector.newRequest()
+	s.assertReq(func(r *request) {
+		e := newRequest()
 		e.method = http.MethodGet
 
-		e.setParams(bybit_connector.params{
+		e.setParams(params{
 			"category": category,
 			"symbol":   symbol,
 		})
@@ -1141,7 +1140,7 @@ func (s *marketTestSuite) TestGetRiskLimit() {
 
 	res, err := s.client.NewGetRiskLimitService().
 		Category(category).Symbol(symbol).
-		Do(bybit_connector.newContext())
+		Do(newContext())
 
 	e1 := &models.MarketRiskLimitInfo{
 		Category: "inverse",
@@ -1194,11 +1193,11 @@ func (s *marketTestSuite) TestGetDeliveryPrice() {
 	baseCoin := "BTC"
 	limit := 10
 	cursor := "cursor"
-	s.assertReq(func(r *bybit_connector.request) {
-		e := bybit_connector.newRequest()
+	s.assertReq(func(r *request) {
+		e := newRequest()
 		e.method = http.MethodGet
 
-		e.setParams(bybit_connector.params{
+		e.setParams(params{
 			"category": category,
 			"symbol":   symbol,
 			"baseCoin": baseCoin,
@@ -1211,7 +1210,7 @@ func (s *marketTestSuite) TestGetDeliveryPrice() {
 	res, err := s.client.NewGetDeliveryPriceService().
 		Category(category).Symbol(symbol).BaseCoin(baseCoin).
 		Limit(limit).Cursor(cursor).
-		Do(bybit_connector.newContext())
+		Do(newContext())
 
 	e1 := &models.DeliveryPriceInfo{
 		Category:       "option",
@@ -1260,11 +1259,11 @@ func (s *marketTestSuite) TestGetMarketLSRatio() {
 	baseCoin := "BTC"
 	period := "period"
 	limit := 10
-	s.assertReq(func(r *bybit_connector.request) {
-		e := bybit_connector.newRequest()
+	s.assertReq(func(r *request) {
+		e := newRequest()
 		e.method = http.MethodGet
 
-		e.setParams(bybit_connector.params{
+		e.setParams(params{
 			"category": category,
 			"baseCoin": baseCoin,
 			"period":   period,
@@ -1276,7 +1275,7 @@ func (s *marketTestSuite) TestGetMarketLSRatio() {
 	res, err := s.client.NewGetMarketLSRatioService().
 		Category(category).BaseCoin(baseCoin).
 		Period(period).Limit(limit).
-		Do(bybit_connector.newContext())
+		Do(newContext())
 
 	e1 := &models.MarketLongShortRatioInfo{
 		List: []models.LongShortRatioData{
@@ -1311,13 +1310,13 @@ func (s *marketTestSuite) TestGetServerTime() {
 	s.mockDo(data, nil)
 	defer s.assertDo()
 
-	s.assertReq(func(r *bybit_connector.request) {
-		e := bybit_connector.newRequest()
+	s.assertReq(func(r *request) {
+		e := newRequest()
 		e.method = http.MethodGet
 		s.assertRequestEqual(e, r)
 	})
 
-	res, err := s.client.NewGetServerTimeService().Do(bybit_connector.newContext())
+	res, err := s.client.NewGetServerTimeService().Do(newContext())
 
 	e1 := &models.ServerTimeResult{
 		TimeSecond: "1688639403",
