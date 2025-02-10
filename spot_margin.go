@@ -3,7 +3,7 @@ package bybit_connector
 import (
 	"context"
 	"errors"
-	"github.com/wuhewuhe/bybit.go.api/handlers"
+	"github.com/neoru4/bybit.go.api/handlers"
 	"net/http"
 )
 
