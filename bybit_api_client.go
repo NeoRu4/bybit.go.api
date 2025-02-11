@@ -35,6 +35,22 @@ type ServerResponse struct {
 	Time       int64       `json:"time"`
 }
 
+// PutResult Result(interface{}) to struct PutResult(&struct{}), because it interface{}
+// | response crutch
+func (r *ServerResponse) PutResult(b any) error {
+	tmp, err := json.Marshal(r.Result)
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(tmp, b)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func SendRequest(ctx context.Context, opts []RequestOption, r *request, s *BybitClientRequest, err error) []byte {
 	r.setParams(s.params)
 	data, err := s.c.callAPI(ctx, r, opts...)
